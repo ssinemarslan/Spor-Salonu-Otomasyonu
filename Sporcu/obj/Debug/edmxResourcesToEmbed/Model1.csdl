@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SporcuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EgitmenlerBilgi">
+    <Key>
+      <PropertyRef Name="EgitmenNo" />
+    </Key>
+    <Property Name="EgitmenNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EgitmenAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EgitmenAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EgitmenTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SporcuNo" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KullanicilarBilgi">
+    <Key>
+      <PropertyRef Name="KullaniciNo" />
+    </Key>
+    <Property Name="KullaniciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="SalonlarBilgi">
+    <Key>
+      <PropertyRef Name="SalonNo" />
+    </Key>
+    <Property Name="SalonNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SalonAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Salonm2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EgitmenNo" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SporcularBilgi">
+    <Key>
+      <PropertyRef Name="SporcuNo" />
+    </Key>
+    <Property Name="SporcuNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SporcuAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SporcuYas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SporcuBoy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SporcuKilo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SporcuAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SporcuTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_EgitmenlerBilgi_SporcularBilgi">
+    <End Role="SporcularBilgi" Type="Self.SporcularBilgi" Multiplicity="1" />
+    <End Role="EgitmenlerBilgi" Type="Self.EgitmenlerBilgi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SporcularBilgi">
+        <PropertyRef Name="SporcuNo" />
+      </Principal>
+      <Dependent Role="EgitmenlerBilgi">
+        <PropertyRef Name="SporcuNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalonlarBilgi_EgitmenlerBilgi">
+    <End Role="EgitmenlerBilgi" Type="Self.EgitmenlerBilgi" Multiplicity="1" />
+    <End Role="SalonlarBilgi" Type="Self.SalonlarBilgi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EgitmenlerBilgi">
+        <PropertyRef Name="EgitmenNo" />
+      </Principal>
+      <Dependent Role="SalonlarBilgi">
+        <PropertyRef Name="EgitmenNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SporcuEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EgitmenlerBilgis" EntityType="Self.EgitmenlerBilgi" />
+    <EntitySet Name="KullanicilarBilgis" EntityType="Self.KullanicilarBilgi" />
+    <EntitySet Name="SalonlarBilgis" EntityType="Self.SalonlarBilgi" />
+    <EntitySet Name="SporcularBilgis" EntityType="Self.SporcularBilgi" />
+    <AssociationSet Name="FK_EgitmenlerBilgi_SporcularBilgi" Association="Self.FK_EgitmenlerBilgi_SporcularBilgi">
+      <End Role="SporcularBilgi" EntitySet="SporcularBilgis" />
+      <End Role="EgitmenlerBilgi" EntitySet="EgitmenlerBilgis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalonlarBilgi_EgitmenlerBilgi" Association="Self.FK_SalonlarBilgi_EgitmenlerBilgi">
+      <End Role="EgitmenlerBilgi" EntitySet="EgitmenlerBilgis" />
+      <End Role="SalonlarBilgi" EntitySet="SalonlarBilgis" />
+    </AssociationSet>
+    <FunctionImport Name="EgitmenEkle">
+      <Parameter Name="EgitmenAdSoyad" Mode="In" Type="String" />
+      <Parameter Name="EgitmenAdres" Mode="In" Type="String" />
+      <Parameter Name="EgitmenTelefon" Mode="In" Type="String" />
+      <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EgitmenListele" ReturnType="Collection(SporcuModel.EgitmenListele_Result)" />
+    <FunctionImport Name="EgitmenSil">
+      <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EgitmenYenile">
+      <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+      <Parameter Name="EgitmenAdSoyad" Mode="In" Type="String" />
+      <Parameter Name="EgitmenAdres" Mode="In" Type="String" />
+      <Parameter Name="EgitmenTelefon" Mode="In" Type="String" />
+      <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SalonEkle">
+      <Parameter Name="SalonAdi" Mode="In" Type="String" />
+      <Parameter Name="Salonm2" Mode="In" Type="String" />
+      <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SalonListele" ReturnType="Collection(SporcuModel.SalonListele_Result)" />
+    <FunctionImport Name="SalonSil">
+      <Parameter Name="SalonNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SalonYenile">
+      <Parameter Name="SalonNo" Mode="In" Type="Int32" />
+      <Parameter Name="SalonAdi" Mode="In" Type="String" />
+      <Parameter Name="Salonm2" Mode="In" Type="String" />
+      <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SporcuModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SporcuModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="SporcuEkle">
+      <Parameter Name="SporcuAdSoyad" Mode="In" Type="String" />
+      <Parameter Name="SporcuYas" Mode="In" Type="String" />
+      <Parameter Name="SporcuBoy" Mode="In" Type="String" />
+      <Parameter Name="SporcuKilo" Mode="In" Type="String" />
+      <Parameter Name="SporcuAdres" Mode="In" Type="String" />
+      <Parameter Name="SporcuTelefon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SporcuListele" ReturnType="Collection(SporcuModel.SporcuListele_Result)" />
+    <FunctionImport Name="SporcuSil">
+      <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SporcuYenile">
+      <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+      <Parameter Name="SporcuAdSoyad" Mode="In" Type="String" />
+      <Parameter Name="SporcuYas" Mode="In" Type="String" />
+      <Parameter Name="SporcuBoy" Mode="In" Type="String" />
+      <Parameter Name="SporcuKilo" Mode="In" Type="String" />
+      <Parameter Name="SporcuAdres" Mode="In" Type="String" />
+      <Parameter Name="SporcuTelefon" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="EgitmenListele_Result">
+    <Property Type="Int32" Name="EgitmenNo" Nullable="false" />
+    <Property Type="String" Name="EgitmenAdSoyad" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EgitmenAdres" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EgitmenTelefon" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SporcuNo" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SalonListele_Result">
+    <Property Type="Int32" Name="SalonNo" Nullable="false" />
+    <Property Type="String" Name="SalonAdi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Salonm2" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="EgitmenNo" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SporcuListele_Result">
+    <Property Type="Int32" Name="SporcuNo" Nullable="false" />
+    <Property Type="String" Name="SporcuAdSoyad" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SporcuYas" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SporcuBoy" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SporcuKilo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SporcuAdres" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SporcuTelefon" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

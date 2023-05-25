@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SporcuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EgitmenlerBilgi">
+          <Key>
+            <PropertyRef Name="EgitmenNo" />
+          </Key>
+          <Property Name="EgitmenNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EgitmenAdSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="EgitmenAdres" Type="varchar" MaxLength="50" />
+          <Property Name="EgitmenTelefon" Type="varchar" MaxLength="50" />
+          <Property Name="SporcuNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KullanicilarBilgi">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" />
+          <Property Name="Sifre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SalonlarBilgi">
+          <Key>
+            <PropertyRef Name="SalonNo" />
+          </Key>
+          <Property Name="SalonNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalonAdi" Type="varchar" MaxLength="50" />
+          <Property Name="Salonm2" Type="varchar" MaxLength="50" />
+          <Property Name="EgitmenNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SporcularBilgi">
+          <Key>
+            <PropertyRef Name="SporcuNo" />
+          </Key>
+          <Property Name="SporcuNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SporcuAdSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="SporcuYas" Type="varchar" MaxLength="50" />
+          <Property Name="SporcuBoy" Type="varchar" MaxLength="50" />
+          <Property Name="SporcuKilo" Type="varchar" MaxLength="50" />
+          <Property Name="SporcuAdres" Type="varchar" MaxLength="50" />
+          <Property Name="SporcuTelefon" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_EgitmenlerBilgi_SporcularBilgi">
+          <End Role="SporcularBilgi" Type="Self.SporcularBilgi" Multiplicity="1" />
+          <End Role="EgitmenlerBilgi" Type="Self.EgitmenlerBilgi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SporcularBilgi">
+              <PropertyRef Name="SporcuNo" />
+            </Principal>
+            <Dependent Role="EgitmenlerBilgi">
+              <PropertyRef Name="SporcuNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonlarBilgi_EgitmenlerBilgi">
+          <End Role="EgitmenlerBilgi" Type="Self.EgitmenlerBilgi" Multiplicity="1" />
+          <End Role="SalonlarBilgi" Type="Self.SalonlarBilgi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgitmenlerBilgi">
+              <PropertyRef Name="EgitmenNo" />
+            </Principal>
+            <Dependent Role="SalonlarBilgi">
+              <PropertyRef Name="EgitmenNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="EgitmenEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EgitmenAdSoyad" Type="varchar" Mode="In" />
+          <Parameter Name="EgitmenAdres" Type="varchar" Mode="In" />
+          <Parameter Name="EgitmenTelefon" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EgitmenListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="EgitmenSil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EgitmenNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EgitmenYenile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EgitmenNo" Type="int" Mode="In" />
+          <Parameter Name="EgitmenAdSoyad" Type="varchar" Mode="In" />
+          <Parameter Name="EgitmenAdres" Type="varchar" Mode="In" />
+          <Parameter Name="EgitmenTelefon" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="SalonEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SalonAdi" Type="varchar" Mode="In" />
+          <Parameter Name="Salonm2" Type="varchar" Mode="In" />
+          <Parameter Name="EgitmenNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SalonListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SalonSil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SalonNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SalonYenile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SalonNo" Type="int" Mode="In" />
+          <Parameter Name="SalonAdi" Type="varchar" Mode="In" />
+          <Parameter Name="Salonm2" Type="varchar" Mode="In" />
+          <Parameter Name="EgitmenNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SporcuEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SporcuAdSoyad" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuYas" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuBoy" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuKilo" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuAdres" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuTelefon" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SporcuListele" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SporcuSil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SporcuNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SporcuYenile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SporcuNo" Type="int" Mode="In" />
+          <Parameter Name="SporcuAdSoyad" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuYas" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuBoy" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuKilo" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuAdres" Type="varchar" Mode="In" />
+          <Parameter Name="SporcuTelefon" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="SporcuModelStoreContainer">
+          <EntitySet Name="EgitmenlerBilgi" EntityType="Self.EgitmenlerBilgi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullanicilarBilgi" EntityType="Self.KullanicilarBilgi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalonlarBilgi" EntityType="Self.SalonlarBilgi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SporcularBilgi" EntityType="Self.SporcularBilgi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EgitmenlerBilgi_SporcularBilgi" Association="Self.FK_EgitmenlerBilgi_SporcularBilgi">
+            <End Role="SporcularBilgi" EntitySet="SporcularBilgi" />
+            <End Role="EgitmenlerBilgi" EntitySet="EgitmenlerBilgi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonlarBilgi_EgitmenlerBilgi" Association="Self.FK_SalonlarBilgi_EgitmenlerBilgi">
+            <End Role="EgitmenlerBilgi" EntitySet="EgitmenlerBilgi" />
+            <End Role="SalonlarBilgi" EntitySet="SalonlarBilgi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SporcuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EgitmenlerBilgi">
+          <Key>
+            <PropertyRef Name="EgitmenNo" />
+          </Key>
+          <Property Name="EgitmenNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EgitmenAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EgitmenAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EgitmenTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SporcuNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KullanicilarBilgi">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SalonlarBilgi">
+          <Key>
+            <PropertyRef Name="SalonNo" />
+          </Key>
+          <Property Name="SalonNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalonAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salonm2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EgitmenNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SporcularBilgi">
+          <Key>
+            <PropertyRef Name="SporcuNo" />
+          </Key>
+          <Property Name="SporcuNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SporcuAdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SporcuYas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SporcuBoy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SporcuKilo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SporcuAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SporcuTelefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_EgitmenlerBilgi_SporcularBilgi">
+          <End Role="SporcularBilgi" Type="Self.SporcularBilgi" Multiplicity="1" />
+          <End Role="EgitmenlerBilgi" Type="Self.EgitmenlerBilgi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SporcularBilgi">
+              <PropertyRef Name="SporcuNo" />
+            </Principal>
+            <Dependent Role="EgitmenlerBilgi">
+              <PropertyRef Name="SporcuNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalonlarBilgi_EgitmenlerBilgi">
+          <End Role="EgitmenlerBilgi" Type="Self.EgitmenlerBilgi" Multiplicity="1" />
+          <End Role="SalonlarBilgi" Type="Self.SalonlarBilgi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EgitmenlerBilgi">
+              <PropertyRef Name="EgitmenNo" />
+            </Principal>
+            <Dependent Role="SalonlarBilgi">
+              <PropertyRef Name="EgitmenNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SporcuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EgitmenlerBilgis" EntityType="Self.EgitmenlerBilgi" />
+          <EntitySet Name="KullanicilarBilgis" EntityType="Self.KullanicilarBilgi" />
+          <EntitySet Name="SalonlarBilgis" EntityType="Self.SalonlarBilgi" />
+          <EntitySet Name="SporcularBilgis" EntityType="Self.SporcularBilgi" />
+          <AssociationSet Name="FK_EgitmenlerBilgi_SporcularBilgi" Association="Self.FK_EgitmenlerBilgi_SporcularBilgi">
+            <End Role="SporcularBilgi" EntitySet="SporcularBilgis" />
+            <End Role="EgitmenlerBilgi" EntitySet="EgitmenlerBilgis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalonlarBilgi_EgitmenlerBilgi" Association="Self.FK_SalonlarBilgi_EgitmenlerBilgi">
+            <End Role="EgitmenlerBilgi" EntitySet="EgitmenlerBilgis" />
+            <End Role="SalonlarBilgi" EntitySet="SalonlarBilgis" />
+          </AssociationSet>
+          <FunctionImport Name="EgitmenEkle">
+            <Parameter Name="EgitmenAdSoyad" Mode="In" Type="String" />
+            <Parameter Name="EgitmenAdres" Mode="In" Type="String" />
+            <Parameter Name="EgitmenTelefon" Mode="In" Type="String" />
+            <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EgitmenListele" ReturnType="Collection(SporcuModel.EgitmenListele_Result)" />
+          <FunctionImport Name="EgitmenSil">
+            <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EgitmenYenile">
+            <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+            <Parameter Name="EgitmenAdSoyad" Mode="In" Type="String" />
+            <Parameter Name="EgitmenAdres" Mode="In" Type="String" />
+            <Parameter Name="EgitmenTelefon" Mode="In" Type="String" />
+            <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SalonEkle">
+            <Parameter Name="SalonAdi" Mode="In" Type="String" />
+            <Parameter Name="Salonm2" Mode="In" Type="String" />
+            <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SalonListele" ReturnType="Collection(SporcuModel.SalonListele_Result)" />
+          <FunctionImport Name="SalonSil">
+            <Parameter Name="SalonNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SalonYenile">
+            <Parameter Name="SalonNo" Mode="In" Type="Int32" />
+            <Parameter Name="SalonAdi" Mode="In" Type="String" />
+            <Parameter Name="Salonm2" Mode="In" Type="String" />
+            <Parameter Name="EgitmenNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SporcuModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SporcuModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="SporcuEkle">
+            <Parameter Name="SporcuAdSoyad" Mode="In" Type="String" />
+            <Parameter Name="SporcuYas" Mode="In" Type="String" />
+            <Parameter Name="SporcuBoy" Mode="In" Type="String" />
+            <Parameter Name="SporcuKilo" Mode="In" Type="String" />
+            <Parameter Name="SporcuAdres" Mode="In" Type="String" />
+            <Parameter Name="SporcuTelefon" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SporcuListele" ReturnType="Collection(SporcuModel.SporcuListele_Result)" />
+          <FunctionImport Name="SporcuSil">
+            <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SporcuYenile">
+            <Parameter Name="SporcuNo" Mode="In" Type="Int32" />
+            <Parameter Name="SporcuAdSoyad" Mode="In" Type="String" />
+            <Parameter Name="SporcuYas" Mode="In" Type="String" />
+            <Parameter Name="SporcuBoy" Mode="In" Type="String" />
+            <Parameter Name="SporcuKilo" Mode="In" Type="String" />
+            <Parameter Name="SporcuAdres" Mode="In" Type="String" />
+            <Parameter Name="SporcuTelefon" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="EgitmenListele_Result">
+          <Property Type="Int32" Name="EgitmenNo" Nullable="false" />
+          <Property Type="String" Name="EgitmenAdSoyad" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EgitmenAdres" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EgitmenTelefon" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SporcuNo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SalonListele_Result">
+          <Property Type="Int32" Name="SalonNo" Nullable="false" />
+          <Property Type="String" Name="SalonAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Salonm2" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EgitmenNo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SporcuListele_Result">
+          <Property Type="Int32" Name="SporcuNo" Nullable="false" />
+          <Property Type="String" Name="SporcuAdSoyad" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SporcuYas" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SporcuBoy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SporcuKilo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SporcuAdres" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SporcuTelefon" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SporcuModelStoreContainer" CdmEntityContainer="SporcuEntities">
+          <EntitySetMapping Name="EgitmenlerBilgis">
+            <EntityTypeMapping TypeName="SporcuModel.EgitmenlerBilgi">
+              <MappingFragment StoreEntitySet="EgitmenlerBilgi">
+                <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+                <ScalarProperty Name="EgitmenAdSoyad" ColumnName="EgitmenAdSoyad" />
+                <ScalarProperty Name="EgitmenAdres" ColumnName="EgitmenAdres" />
+                <ScalarProperty Name="EgitmenTelefon" ColumnName="EgitmenTelefon" />
+                <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullanicilarBilgis">
+            <EntityTypeMapping TypeName="SporcuModel.KullanicilarBilgi">
+              <MappingFragment StoreEntitySet="KullanicilarBilgi">
+                <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalonlarBilgis">
+            <EntityTypeMapping TypeName="SporcuModel.SalonlarBilgi">
+              <MappingFragment StoreEntitySet="SalonlarBilgi">
+                <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+                <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
+                <ScalarProperty Name="Salonm2" ColumnName="Salonm2" />
+                <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SporcularBilgis">
+            <EntityTypeMapping TypeName="SporcuModel.SporcularBilgi">
+              <MappingFragment StoreEntitySet="SporcularBilgi">
+                <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+                <ScalarProperty Name="SporcuAdSoyad" ColumnName="SporcuAdSoyad" />
+                <ScalarProperty Name="SporcuYas" ColumnName="SporcuYas" />
+                <ScalarProperty Name="SporcuBoy" ColumnName="SporcuBoy" />
+                <ScalarProperty Name="SporcuKilo" ColumnName="SporcuKilo" />
+                <ScalarProperty Name="SporcuAdres" ColumnName="SporcuAdres" />
+                <ScalarProperty Name="SporcuTelefon" ColumnName="SporcuTelefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="EgitmenEkle" FunctionName="SporcuModel.Store.EgitmenEkle" />
+          <FunctionImportMapping FunctionImportName="EgitmenListele" FunctionName="SporcuModel.Store.EgitmenListele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SporcuModel.EgitmenListele_Result">
+                <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+                <ScalarProperty Name="EgitmenAdSoyad" ColumnName="EgitmenAdSoyad" />
+                <ScalarProperty Name="EgitmenAdres" ColumnName="EgitmenAdres" />
+                <ScalarProperty Name="EgitmenTelefon" ColumnName="EgitmenTelefon" />
+                <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EgitmenSil" FunctionName="SporcuModel.Store.EgitmenSil" />
+          <FunctionImportMapping FunctionImportName="EgitmenYenile" FunctionName="SporcuModel.Store.EgitmenYenile" />
+          <FunctionImportMapping FunctionImportName="SalonEkle" FunctionName="SporcuModel.Store.SalonEkle" />
+          <FunctionImportMapping FunctionImportName="SalonListele" FunctionName="SporcuModel.Store.SalonListele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SporcuModel.SalonListele_Result">
+                <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+                <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
+                <ScalarProperty Name="Salonm2" ColumnName="Salonm2" />
+                <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SalonSil" FunctionName="SporcuModel.Store.SalonSil" />
+          <FunctionImportMapping FunctionImportName="SalonYenile" FunctionName="SporcuModel.Store.SalonYenile" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SporcuModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SporcuModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SporcuModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SporcuModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SporcuModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SporcuModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SporcuModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SporcuModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SporcuModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SporcuEkle" FunctionName="SporcuModel.Store.SporcuEkle" />
+          <FunctionImportMapping FunctionImportName="SporcuListele" FunctionName="SporcuModel.Store.SporcuListele">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SporcuModel.SporcuListele_Result">
+                <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+                <ScalarProperty Name="SporcuAdSoyad" ColumnName="SporcuAdSoyad" />
+                <ScalarProperty Name="SporcuYas" ColumnName="SporcuYas" />
+                <ScalarProperty Name="SporcuBoy" ColumnName="SporcuBoy" />
+                <ScalarProperty Name="SporcuKilo" ColumnName="SporcuKilo" />
+                <ScalarProperty Name="SporcuAdres" ColumnName="SporcuAdres" />
+                <ScalarProperty Name="SporcuTelefon" ColumnName="SporcuTelefon" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SporcuSil" FunctionName="SporcuModel.Store.SporcuSil" />
+          <FunctionImportMapping FunctionImportName="SporcuYenile" FunctionName="SporcuModel.Store.SporcuYenile" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

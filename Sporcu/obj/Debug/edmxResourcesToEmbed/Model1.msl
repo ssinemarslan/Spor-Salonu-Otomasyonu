@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SporcuModelStoreContainer" CdmEntityContainer="SporcuEntities">
+    <EntitySetMapping Name="EgitmenlerBilgis">
+      <EntityTypeMapping TypeName="SporcuModel.EgitmenlerBilgi">
+        <MappingFragment StoreEntitySet="EgitmenlerBilgi">
+          <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+          <ScalarProperty Name="EgitmenAdSoyad" ColumnName="EgitmenAdSoyad" />
+          <ScalarProperty Name="EgitmenAdres" ColumnName="EgitmenAdres" />
+          <ScalarProperty Name="EgitmenTelefon" ColumnName="EgitmenTelefon" />
+          <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KullanicilarBilgis">
+      <EntityTypeMapping TypeName="SporcuModel.KullanicilarBilgi">
+        <MappingFragment StoreEntitySet="KullanicilarBilgi">
+          <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalonlarBilgis">
+      <EntityTypeMapping TypeName="SporcuModel.SalonlarBilgi">
+        <MappingFragment StoreEntitySet="SalonlarBilgi">
+          <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+          <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
+          <ScalarProperty Name="Salonm2" ColumnName="Salonm2" />
+          <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SporcularBilgis">
+      <EntityTypeMapping TypeName="SporcuModel.SporcularBilgi">
+        <MappingFragment StoreEntitySet="SporcularBilgi">
+          <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+          <ScalarProperty Name="SporcuAdSoyad" ColumnName="SporcuAdSoyad" />
+          <ScalarProperty Name="SporcuYas" ColumnName="SporcuYas" />
+          <ScalarProperty Name="SporcuBoy" ColumnName="SporcuBoy" />
+          <ScalarProperty Name="SporcuKilo" ColumnName="SporcuKilo" />
+          <ScalarProperty Name="SporcuAdres" ColumnName="SporcuAdres" />
+          <ScalarProperty Name="SporcuTelefon" ColumnName="SporcuTelefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EgitmenEkle" FunctionName="SporcuModel.Store.EgitmenEkle" />
+    <FunctionImportMapping FunctionImportName="EgitmenListele" FunctionName="SporcuModel.Store.EgitmenListele">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SporcuModel.EgitmenListele_Result">
+          <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+          <ScalarProperty Name="EgitmenAdSoyad" ColumnName="EgitmenAdSoyad" />
+          <ScalarProperty Name="EgitmenAdres" ColumnName="EgitmenAdres" />
+          <ScalarProperty Name="EgitmenTelefon" ColumnName="EgitmenTelefon" />
+          <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EgitmenSil" FunctionName="SporcuModel.Store.EgitmenSil" />
+    <FunctionImportMapping FunctionImportName="EgitmenYenile" FunctionName="SporcuModel.Store.EgitmenYenile" />
+    <FunctionImportMapping FunctionImportName="SalonEkle" FunctionName="SporcuModel.Store.SalonEkle" />
+    <FunctionImportMapping FunctionImportName="SalonListele" FunctionName="SporcuModel.Store.SalonListele">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SporcuModel.SalonListele_Result">
+          <ScalarProperty Name="SalonNo" ColumnName="SalonNo" />
+          <ScalarProperty Name="SalonAdi" ColumnName="SalonAdi" />
+          <ScalarProperty Name="Salonm2" ColumnName="Salonm2" />
+          <ScalarProperty Name="EgitmenNo" ColumnName="EgitmenNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SalonSil" FunctionName="SporcuModel.Store.SalonSil" />
+    <FunctionImportMapping FunctionImportName="SalonYenile" FunctionName="SporcuModel.Store.SalonYenile" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SporcuModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SporcuModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SporcuModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SporcuModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SporcuModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SporcuModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SporcuModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SporcuModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SporcuModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="SporcuEkle" FunctionName="SporcuModel.Store.SporcuEkle" />
+    <FunctionImportMapping FunctionImportName="SporcuListele" FunctionName="SporcuModel.Store.SporcuListele">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SporcuModel.SporcuListele_Result">
+          <ScalarProperty Name="SporcuNo" ColumnName="SporcuNo" />
+          <ScalarProperty Name="SporcuAdSoyad" ColumnName="SporcuAdSoyad" />
+          <ScalarProperty Name="SporcuYas" ColumnName="SporcuYas" />
+          <ScalarProperty Name="SporcuBoy" ColumnName="SporcuBoy" />
+          <ScalarProperty Name="SporcuKilo" ColumnName="SporcuKilo" />
+          <ScalarProperty Name="SporcuAdres" ColumnName="SporcuAdres" />
+          <ScalarProperty Name="SporcuTelefon" ColumnName="SporcuTelefon" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SporcuSil" FunctionName="SporcuModel.Store.SporcuSil" />
+    <FunctionImportMapping FunctionImportName="SporcuYenile" FunctionName="SporcuModel.Store.SporcuYenile" />
+  </EntityContainerMapping>
+</Mapping>
